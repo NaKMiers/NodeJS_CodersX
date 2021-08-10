@@ -1,3 +1,4 @@
+const md5 = require('md5')
 const db = require('../db')
 
 module.exports = {
@@ -21,10 +22,14 @@ module.exports = {
 			return
 		}
 
-		if (user.password !== password) {
+		let hashPasword = md5(password)
+
+		if (user.password !== hashPasword) {
 			res.render('auth/login', { errors: [ 'Wrong password' ], values: req.body })
 		} else {
-			res.cookie('userId', user.id)
+			res.cookie('userId', user.id, {
+				signed: true
+			})
 			res.redirect('/users')
 		}
 	}
