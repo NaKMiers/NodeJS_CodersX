@@ -1,0 +1,24 @@
+{
+    "name": "nodejs_codersx",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon --inspect ./index.js",
+        "nice": "prettier --single-quote --trailing-comma all --semi false --tab-width 4 --write ./**/*.{js,json}",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.1",
+        "lowdb": "^1.0.0",
+        "md5": "^2.3.0",
+        "pug": "^3.0.2",
+        "shortid": "^2.2.16"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.12",
+        "prettier": "^2.3.2"
+    }
+}
