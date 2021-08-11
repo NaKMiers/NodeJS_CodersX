@@ -5,6 +5,22 @@ const port = 3000
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const csurf = require('csurf')
+const mongoose = require('mongoose')
+
+async function connect() {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/nodejs_codersx', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false,
+            useCreateIndex: true
+        })
+        console.log('connect successfully')
+    } catch(error) {
+        console.log('connect failure')
+    }
+}
+connect()
 
 const userRoute = require('./routes/user.route')
 const authRoute = require('./routes/auth.route')
@@ -30,7 +46,7 @@ app.use(express.static('public'))
 
 app.get('/', (req, res) => {
     res.render('index', {
-        name: 'Nguyen Anh Khoa'
+        name: 'Nguyen Anh Khoa',
     })
 })
 
