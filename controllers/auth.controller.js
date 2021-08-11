@@ -22,8 +22,8 @@ module.exports = {
 			return
 		}
 
-		let hashPasword = md5(password)
-
+		var hashPasword = md5(password)
+``
 		if (user.password !== hashPasword) {
 			res.render('auth/login', { errors: [ 'Wrong password' ], values: req.body })
 		} else {

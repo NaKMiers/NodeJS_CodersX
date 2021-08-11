@@ -8,12 +8,26 @@ block header
 			each error in errors
 				.alert.alert-danger= error
 
-		form(method="POST", action="/users/create")
-			label(for="name", style="cursor: pointer") Name
-			div(class="d-flex mb-2")
-				input(type="text", name="name", id="name", value=values ? values.name : '' class="form-control mr-2", placeholder="Enter user's name")
+		form(method="POST", action="/users/create", enctype="multipart/form-data")
+			.form-group
+				label(for="name") Name
+				input#name.form-control(type="text", name="name", value=values ? values.name : '')
+				
+			.form-group
+				label(for="phone") Phone
+				input#phone.form-control(type="text", name="phone", value=values ? values.phone : '')
 
-			label(for="phone", style="cursor: pointer") Phone
-			div(class="d-flex mb-2")
-				input(type="text", name="phone", id="phone", value=values ? values.phone : '' class="form-control mr-2", placeholder="Enter phone number")
+			.form-group
+				label(for="email") Email
+				input#email.form-control(type="email", name="email", value=values ? values.email : '')
+
+			.form-group
+				label(for="password") Password
+				input#password.form-control(type="password", name="password", value=values ? values.password : '')
+
+
+			.form-group
+				label(for="avatar") Avatar
+				input#avatar.form-control-file(type="file", name="avatar")
+
 			button(class="btn btn-primary mt-2") Create

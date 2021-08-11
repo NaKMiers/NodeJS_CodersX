@@ -4,9 +4,9 @@ block content
     nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         .container
             a.navbar-brand(href='/')
-                img(src="/images/logo.jpg", class="avatar")
+                img(src=user ? '/' + user.avatar : '/images/logo.jpg', class="avatar")
                 if user
-                    span= user.name
+                    span= ' ' + user.name
 
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
                 span.navbar-toggler-icon
@@ -17,7 +17,11 @@ block content
                         a.nav-link(href='/users') Users
                         span.sr-only (current)
                     li.nav-item
-                        a.nav-link(href='/users/create') Create
+                        a.nav-link(href='/users/create') Create user
+                    li.nav-item
+                        a.nav-link(href='/products') Productions
+                    li.nav-item
+                        a.nav-link(href='/products/create') Create Product
                     li.nav-item
                         a.nav-link(href='/auth/login') Login
                     li.nav-item

@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 const userRoute = require('./routes/user.route')
 const authRoute = require('./routes/auth.route')
 const authMiddleware = require('./middlewares/auth.middleware')
+const productRoute = require('./routes/product.route')
 
 const app = express()
 
@@ -28,11 +29,13 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', authMiddleware.requireAuth, userRoute)
-app.use('/auth', authRoute)
-
-app.get('/nak', (req, res) => {
-    res.send('This is Nguyen Anh Khoa')
-})
+app.use('/auth',
+    (req, res, next) => {
+        res.locals.user = { avatar: 'images/logo.jpg', name: 'No Name' }
+        next()
+    }, 
+    authRoute)
+app.use('/products', productRoute)
 
 // Listening at port
 app.listen(port, function (req, res) {
