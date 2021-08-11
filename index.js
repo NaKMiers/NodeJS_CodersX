@@ -4,11 +4,16 @@ const express = require('express')
 const port = 3000
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
+const csurf = require('csurf')
 
 const userRoute = require('./routes/user.route')
 const authRoute = require('./routes/auth.route')
-const authMiddleware = require('./middlewares/auth.middleware')
 const productRoute = require('./routes/product.route')
+const cartRoute = require('./routes/cart.route')
+const transferRoute = require('./routes/transfer.route')
+
+const authMiddleware = require('./middlewares/auth.middleware')
+const sessionMiddleware = require('./middlewares/session.middleware')
 
 const app = express()
 
@@ -17,8 +22,9 @@ app.set('views', './views')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-
 app.use(cookieParser(process.env.SESSION_SECRET))
+app.use(sessionMiddleware)
+app.use(csurf({ cookie: true }))
 
 app.use(express.static('public'))
 
@@ -29,13 +35,10 @@ app.get('/', (req, res) => {
 })
 
 app.use('/users', authMiddleware.requireAuth, userRoute)
-app.use('/auth',
-    (req, res, next) => {
-        res.locals.user = { avatar: 'images/logo.jpg', name: 'No Name' }
-        next()
-    }, 
-    authRoute)
+app.use('/auth', authRoute)
 app.use('/products', productRoute)
+app.use('/cart', cartRoute)
+app.use('/transfer', authMiddleware.requireAuth, transferRoute)
 
 // Listening at port
 app.listen(port, function (req, res) {

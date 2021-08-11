@@ -1,0 +1,16 @@
+extends ../partials/header
+
+block header
+	.container
+		h1 New Transfer
+		
+		form(method="POST")
+			input(type="hidden", name="_csrf", value=csrfToken)
+				
+			.form-group
+					label(for='account') Account
+					input#account.form-control(type='text', name="accountId")
+			.form-group
+				label(for='description') Amout
+				input#amout.form-control(type='number', name="amount")
+			button.btn.btn-primary Transfer
